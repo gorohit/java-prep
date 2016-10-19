@@ -1,0 +1,54 @@
+ Build a RESTful service that implements a check-out counter for an online retail store that scans products and generates an itemized bill.
+
+This project was compiled with JDK 1.7 and was deployed and tested on Tomcat 8. Database used was mysql 5.
+ 
+Steps to deploy and execute:
+·         Run the included db_script.sql to create necessary tables with sample data in them
+·         Import the included zip in your workspace : import existing project > archive file.
+·         I've included the pom.xml which should download all the required jars. If there are issues with servlet.jar, please remove the reference from pom.xml and add the server dependency to the project itself.
+·         Please change the database user/password in spring-config.xml if required.
+·         Once all the dependencies are resolved, right click on the project > run as > maven build. Goal should be clean install.
+·         Refresh the project, right click again > run as > run on server.
+·         Test this project using Postman or any other client
+·         URL to invoke this service : http://localhost:8080/testormg/orders - assuming the server's default http port is 8080
+·         Sample input json request : This is a list of scanned items which specifies the item code and quantity of items.
+	{"lstItmeIn":[
+		{"id": 1234,"quantity": "5"},
+		{"id": 2345,"quantity": "2"},
+		{"id": 3456,"quantity": "7"},
+		{"id": 5678,"quantity": "3"}
+	]}
+ 
+·         Expected output for this input
+	{
+	  "lstOrderOut": [
+		{
+		  "itemDescription": "Pens",
+		  "total": 50,
+		  "tax": 5
+		},
+		{
+		  "itemDescription": "Pencils",
+		  "total": 20,
+		  "tax": 2
+		},
+		{
+		  "itemDescription": "Papers",
+		  "total": 420,
+		  "tax": 84
+		},
+		{
+		  "itemDescription": "Bags",
+		  "total": 300,
+		  "tax": 0
+		}
+	  ],
+	  "finalTotal": 790,
+	  "finalTax": 91,
+	  "grandTotal": 881
+	}
+ 
+Todo : This lists a few enhancements which can be implemented
+·         Loggers
+·         Separate table for category
+I've tested this on my development system as well as a standalone test system, but just in case you run into any issues while deployment or execution, please let me know and I'd be glad to help.
